@@ -1,6 +1,6 @@
 # AutoTmuxRun
 
-This repository was created to automatically restart and run tmux jobs based on cmmand.json .
+This project was created to automatically restart and run tmux jobs based on cmmand.json .
 
 
 Stop all tasks in session and run based on command.json (including all windows)
