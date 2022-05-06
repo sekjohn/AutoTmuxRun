@@ -1,0 +1,7 @@
+{
+    "session": "test",
+    "command" :[
+        "python", 
+        "python"
+    ]
+}
