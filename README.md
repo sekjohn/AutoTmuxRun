@@ -10,9 +10,10 @@ Stop all tasks in session and run based on command.json (including all windows)
 ### command json file 
 ```
 {
-    "session": "test",
+    "session": "test-worker",
     "command" :[
-        "python", 
+        "celery", 
+        "celery",
         ...
     ]
 }

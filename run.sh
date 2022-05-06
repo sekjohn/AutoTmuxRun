@@ -53,7 +53,6 @@ function CheckInstallation {
 }
 
 function Run {
-    echo "[*] start!!"
     if [ -n "${CommandListFile}" ]; then
         FILEDATAS=($(jq -r '.command' ${CommandListFile}  | tr -d '[]," '))
         FILESESSIONDATAS=$(jq -r '.session' ${CommandListFile})
@@ -67,6 +66,7 @@ function Run {
         echo "[*] Error: use attach session or new session"
         exit 0
     fi
+    echo "[*] Session: ${session}"
     PanesNum=( $(tmux list-panes -F '#{window_index}.#{pane_index}' -t ${session}) )
     for i in ${PanesNum[*]}; do
         tmux send-keys -t ${session}:$i C-c
@@ -78,7 +78,7 @@ function Run {
     for index in ${!PanesNum[*]} ; do
         tmux send-keys -t ${session}:${PanesNum[$index]} ${FILEDATAS[$index]} Enter
     done
-    echo "[*] finish!!"
+    echo "[*] Restart or Start complete!"
 }
 
 CheckInstallation

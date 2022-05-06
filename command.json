@@ -1,7 +1,7 @@
 {
-    "session": "test",
+    "session": "test-worker",
     "command" :[
-        "python", 
-        "python"
+        "celery", 
+        "celery"
     ]
 }
