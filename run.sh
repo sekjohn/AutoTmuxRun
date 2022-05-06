@@ -54,14 +54,14 @@ function CheckInstallation {
 
 function Run {
     echo "[*] start!!"
-    if [ -n "$CommandListFile" ]; then
-        FILEDATAS=($(jq -r '.command' $CommandListFile  | tr -d '[]," '))
-        FILESESSIONDATAS=$(jq -r '.session' $CommandListFile)
+    if [ -n "${CommandListFile}" ]; then
+        FILEDATAS=($(jq -r '.command' ${CommandListFile}  | tr -d '[]," '))
+        FILESESSIONDATAS=$(jq -r '.session' ${CommandListFile})
     fi
     
     if [ -n "$1" ]; then
         session=$1
-    elif [ -n "$FILESESSIONDATAS" ]; then
+    elif [ -n "${FILESESSIONDATAS}" ]; then
         session="${FILESESSIONDATAS}"
     else
         echo "[*] Error: use attach session or new session"
