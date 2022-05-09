@@ -77,7 +77,9 @@ function Run {
     fi 
     for index in ${!PanesNum[*]} ; do
         COMMANDDATAS=$(jq -r ".command[${index}]" command.json)
-        tmux send-keys -t ${session}:${PanesNum[$index]} "${COMMANDDATAS}" Enter
+        if [ "$COMMANDDATAS" != "null" ]; then
+            tmux send-keys -t ${session}:${PanesNum[$index]} "${COMMANDDATAS}" Enter
+        fi
     done
     echo "[*] Restart or Start complete!"
 }
