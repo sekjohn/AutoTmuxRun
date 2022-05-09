@@ -54,7 +54,7 @@ function CheckInstallation {
 
 function Run {
     if [ -n "${CommandListFile}" ]; then
-        FILEDATAS=($(jq -r '.command' command.json | tr -d '[], "'))
+        FILEDATAS=($(jq -r '.command' ${CommandListFile} | tr -d '[], "'))
         FILESESSIONDATAS=$(jq -r '.session' ${CommandListFile})
     fi
     
@@ -76,7 +76,7 @@ function Run {
         exit 0
     fi 
     for index in ${!PanesNum[*]} ; do
-        COMMANDDATAS=$(jq -r ".command[${index}]" command.json)
+        COMMANDDATAS=$(jq -r ".command[${index}]" ${CommandListFile})
         if [ "$COMMANDDATAS" != "null" ]; then
             tmux send-keys -t ${session}:${PanesNum[$index]} "${COMMANDDATAS}" Enter
         fi
