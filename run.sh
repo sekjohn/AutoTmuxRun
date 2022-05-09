@@ -100,15 +100,14 @@ if [ -z "$CommandListFile" ]; then
     exit 0 
 fi
 
-if [ -z "$AttachSessionName" ]; then
+if [ -z "$AttachSessionName" ] && [ -n "$CommandListFile" ]; then
     Run
 else
     if [ -n "$AttachSessionName" ]; then
         Run $AttachSessionName
-    fi
-    if [ -z "$NewSessionName" ]; then
+    elif [ -z "$NewSessionName" ]; then
         read -p "[-] new session: " NewSessionName
         tmux new -d -t $NewSessionName
+        Run $NewSessionName
     fi
-    Run $NewSessionName
 fi
