@@ -1,5 +1,5 @@
 #!/bin/bash
-function Help() {
+function Help {
     echo "? help"
     echo "-n new create session"
     echo "-t attach session"
@@ -54,7 +54,7 @@ function CheckInstallation {
 
 function Run {
     if [ -n "${CommandListFile}" ]; then
-        FILEDATAS=($(jq -r '.command' ${CommandListFile}  | tr -d '[]," '))
+        FILEDATAS=($(jq -r '.command' command.json | tr -d '[], "'))
         FILESESSIONDATAS=$(jq -r '.session' ${CommandListFile})
     fi
     
@@ -71,12 +71,13 @@ function Run {
     for i in ${PanesNum[*]}; do
         tmux send-keys -t ${session}:$i C-c
     done
-    if [ "${#PanesNum[*]}" -gt "${#FILEDATAS[*]}" ]; then
+    if [ "${#PanesNum[*]}" -lt "${#FILEDATAS[*]}" ]; then
         echo "[*] ERROR: Commands is greater than Panes"
         exit 0
     fi 
     for index in ${!PanesNum[*]} ; do
-        tmux send-keys -t ${session}:${PanesNum[$index]} ${FILEDATAS[$index]} Enter
+        COMMANDDATAS=$(jq -r ".command[${index}]" command.json)
+        tmux send-keys -t ${session}:${PanesNum[$index]} "${COMMANDDATAS}" Enter
     done
     echo "[*] Restart or Start complete!"
 }
